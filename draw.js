@@ -1,33 +1,37 @@
-var xCar = 0; //Meest links boven
-var yCar = 100; //Meest links boven
-var xSize = 500;
-var ySize = 500;
-var wheelSize = 30;
+var xSize = innerWidth - 20;
+var ySize = innerHeight - 20;
+var player_x = 100;
+var player_y = 100;
+var player_size = 50;
+var player_speed = 10;
+var player_speed_x = player_speed;
+var player_speed_y = player_speed + 5;
+var speed_force = 100 - player_speed;
 
 function setup() {
   createCanvas(xSize, ySize); //Canvas van 200 px bij 200 px
-  background(210); //Één cijfer geeft grijswaarden
+  background(255); //Één cijfer geeft grijswaarden
 }
 
 function draw() {
-    background(210);
-    //auto
-    noStroke(); //Geen randen om de auto
-    fill(0, 255, 40); //Kies de opvulkleur (rgb)
-    rect(xCar, yCar, 110, 20); //Parameters: x, y, breedte, hoogte
-    rect(xCar + 10, yCar-32, 70, 50);
-    noStroke();
-    fill(0, 255, 255);
-    rect(xCar + 35, yCar - 27, 40, 30);
-    // Wielen
-    stroke(0); //Witte randen voor de wielen
-    strokeWeight(5); //Iets dikkere randen
-    fill(125);
-    line(0, yCar + 21 + wheelSize/2, width, yCar + 21 + wheelSize/2); //Parameters: x1,y1,x2,y2
-    ellipse(xCar + 25, yCar + 21, wheelSize, wheelSize); //Parameters: x, y, breedte, hoogte
-    ellipse(xCar + 80, yCar + 21, wheelSize, wheelSize);
-    stroke(0);
-     //Zwarte weg
-    //'width' is de breedte van je canvas
-    xCar += 1;
+  speed_force = 100 - player_speed;
+  background(255, 255, 255, speed_force);
+  noStroke();
+  fill(0);
+  ellipse(player_x, player_y, player_size, player_size);
+  if (player_x > xSize){
+    player_speed_x = - player_speed_x;
+  }
+  else if(player_x < 0){
+    player_speed_x = - player_speed_x;
+  }
+  if (player_y > ySize){
+    player_speed_y = - player_speed_y;
+  }
+  if (player_y < 0){
+    player_speed_y = - player_speed_y;
+  }
+
+  player_x += player_speed_x;
+  player_y += player_speed_y;
 };
