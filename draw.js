@@ -1,37 +1,57 @@
+var begin_x = 60;
+var begin_y = 60;
 var xSize = innerWidth - 20;
 var ySize = innerHeight - 20;
-var player_x = 100;
-var player_y = 100;
-var player_size = 50;
-var player_speed = 10;
-var player_speed_x = player_speed;
-var player_speed_y = player_speed + 5;
-var speed_force = 100 - player_speed;
+var bal;
+var ballen = []; //Array waar de ballen in komen te staan
+var aantalBallen = 10;
+var speed_force = 85;
+var ball_radius = 25;
 
-function setup() {
-  createCanvas(xSize, ySize); //Canvas van 200 px bij 200 px
-  background(255); //Één cijfer geeft grijswaarden
+function setup(){
+  createCanvas(xSize, ySize);
+
+  for (var i = 0; i< aantalBallen; i++){
+    bal = new Bal(21 + i, 21, ball_radius, Math.floor(Math.random() * 6) + 1, Math.floor(Math.random() * 6) + 1);
+    ballen.push(bal);
+  }
 }
 
-function draw() {
-  speed_force = 100 - player_speed;
+function draw(){
   background(255, 255, 255, speed_force);
-  noStroke();
-  fill(0);
-  ellipse(player_x, player_y, player_size, player_size);
-  if (player_x > xSize){
-    player_speed_x = - player_speed_x;
+
+  for (var i = 0; i < ballen.length; i++){
+    bal = ballen[i];
+    bal.teken();
+    bal.beweeg();
   }
-  else if(player_x < 0){
-    player_speed_x = - player_speed_x;
-  }
-  if (player_y > ySize){
-    player_speed_y = - player_speed_y;
-  }
-  if (player_y < 0){
-    player_speed_y = - player_speed_y;
+}
+
+function Bal(x, y, radius, xspd, yspd){
+  this.xPos = x + begin_x;
+  this.yPos = y + begin_y;
+  this.radius = radius;
+  this.xSpeed = xspd;
+  this.ySpeed = yspd;
+
+  this.teken = function(){
+    ellipse(this.xPos, this.yPos, 2*this.radius, 2*this.radius);
   }
 
-  player_x += player_speed_x;
-  player_y += player_speed_y;
-};
+  this.beweeg = function(){
+    if (this.xPos > width - this.radius || this.xPos < this.radius){
+      if (this.xSpeed < 0){
+        this.xSpeed -=0.1;
+      }
+      else{
+        this.xSpeed +=0.1;
+      }
+      this.xSpeed = -this.xSpeed;
+    }
+    if (this.yPos > height - this.radius || this.yPos < this.radius){
+        this.ySpeed = -this.ySpeed;
+    }
+    this.xPos += this.xSpeed;
+    this.yPos += this.ySpeed;
+  }
+}
