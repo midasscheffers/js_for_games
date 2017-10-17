@@ -1,5 +1,5 @@
-var begin_x = 60;
-var begin_y = 60;
+var begin_x = 30;
+var begin_y = 30;
 var xSize = innerWidth - 20;
 var ySize = innerHeight - 20;
 var bal;
@@ -9,11 +9,9 @@ var speed_force = 50;
 var ball_radius = 5;
 var ball_color;
 var cheeta_bg;
-var player_x;
-var player_y;
-var player_color;
-var player_speed;
-var player_size;
+var player_size = 50;
+var life = 250;
+var stage = 0;
 
 function setup(){
   createCanvas(xSize, ySize);
@@ -26,30 +24,52 @@ function setup(){
 }
 
 function draw(){
-  console.log(frameRate())
-  //background(cheeta_bg);
-  background(255,255,255,speed_force)
-  noStroke();
-  fill(255);
-  ellipse(((innerWidth)/innerWidth*430),200,150);
-  ellipse(780,200,150);
-  fill(0)
-  ellipse(430,200,50);
-  ellipse(780,200,50);
-  for (var i = 0; i < ballen.length; i++){
-    bal = ballen[i];
-    bal.teken();
-    bal.beweeg();
+  if(stage == 0){
+    background(200);
+    fill(170);
+    textSize(25);
+    text(mouseX + " " + mouseY, 25, 25);
+    noStroke();
+    rect((innerWidth/2)-70, (innerHeight/2)-75, 140, 70);
+    textSize(50);
+    fill(140);
+    text("Start", (innerWidth/2)-55, (innerHeight/2)-25);
+  }
+  else{
+    if(!life <= 0){
+      //background(cheeta_bg);
+      background(255,255,255,speed_force)
+      // print life
+      textSize(32);
+      fill(255,0,0);
+      text("life: " + life, 0, 30);
+      fill(50);
+      ellipse(mouseX, mouseY, player_size);
+      //ball logic
+      for (var i = 0; i < ballen.length; i++){
+        bal = ballen[i];
+        bal.teken();
+        bal.check_hit();
+        bal.beweeg();
+      }
+    }
+    else{
+      background(255,0,0);
+      textSize(50);
+      fill(150,0,0);
+      text("You died", (innerWidth/2)-50, (innerHeight/2)-25)
+    }
   }
 }
 
-function player(x, y, player_c, player_s, player_x_speed, player_y_speed){
-  this.player_x = x;
-  this.player_y = y;
-  this.player_c = player_color;
-
-  this.drawplayer = function(){
-    ellipse(this.player_x,this.player_y,)
+function mouseClicked(){
+  console.log("click");
+  if(stage == 0){
+    console.log("stage is 1");
+    if(mouseX > (innerWidth/2)-70 && mouseX < (innerWidth/2)+70 && mouseY > (innerHeight/2)-75 && mouseY < (innerHeight/2)-5){
+      console.log("move stage");
+      stage += 1;
+    }
   }
 }
 
@@ -66,6 +86,14 @@ function Bal(x, y, radius, xspd, yspd, ball_col){
     //stroke(0);
     fill(ball_col);
     ellipse(this.xPos, this.yPos, 2*this.radius, 2*this.radius);
+  }
+
+  this.check_hit = function(){
+    dx = mouseX - this.xPos;
+    dy = mouseY - this.yPos;
+    if (Math.sqrt(dx*dx + dy*dy) <= player_size + this.radius){
+      life -= 1
+    }
   }
 
   this.beweeg = function(){
