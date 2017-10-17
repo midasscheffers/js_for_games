@@ -27,8 +27,6 @@ function draw(){
   if(stage == 0){
     background(200);
     fill(170);
-    textSize(25);
-    text(mouseX + " " + mouseY, 25, 25);
     noStroke();
     rect((innerWidth/2)-70, (innerHeight/2)-75, 140, 70);
     textSize(50);
@@ -63,11 +61,8 @@ function draw(){
 }
 
 function mouseClicked(){
-  console.log("click");
   if(stage == 0){
-    console.log("stage is 1");
     if(mouseX > (innerWidth/2)-70 && mouseX < (innerWidth/2)+70 && mouseY > (innerHeight/2)-75 && mouseY < (innerHeight/2)-5){
-      console.log("move stage");
       stage += 1;
     }
   }
