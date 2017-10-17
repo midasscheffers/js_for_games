@@ -5,8 +5,8 @@ var ySize = innerHeight - 20;
 var bal;
 var ballen = []; //Array waar de ballen in komen te staan
 var aantalBallen = 15;
-var speed_force = 85;
-var ball_radius = 25;
+var speed_force = 50;
+var ball_radius = 5;
 var ball_color;
 var cheeta_bg;
 var player_x;
@@ -20,17 +20,18 @@ function setup(){
   cheeta_bg = loadImage("leopard.jpg");
 
   for (var i = 0; i< aantalBallen; i++){
-    bal = new Bal(21, 21, ball_radius, Math.floor(Math.random() * 6) + 1, Math.floor(Math.random() * 6) + 1,[Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)]);
+    bal = new Bal(21, 21, ball_radius + Math.floor(Math.random() * 25), Math.floor(Math.random() * 6) + 1, Math.floor(Math.random() * 6) + 1,[Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)]);
     ballen.push(bal);
   }
 }
 
 function draw(){
-  background(cheeta_bg);
-  //background(255,255,255,speed_force)
+  console.log(frameRate())
+  //background(cheeta_bg);
+  background(255,255,255,speed_force)
   noStroke();
   fill(255);
-  ellipse(430,200,150);
+  ellipse(((innerWidth)/innerWidth*430),200,150);
   ellipse(780,200,150);
   fill(0)
   ellipse(430,200,50);
@@ -39,6 +40,16 @@ function draw(){
     bal = ballen[i];
     bal.teken();
     bal.beweeg();
+  }
+}
+
+function player(x, y, player_c, player_s, player_x_speed, player_y_speed){
+  this.player_x = x;
+  this.player_y = y;
+  this.player_c = player_color;
+
+  this.drawplayer = function(){
+    ellipse(this.player_x,this.player_y,)
   }
 }
 
@@ -52,6 +63,7 @@ function Bal(x, y, radius, xspd, yspd, ball_col){
 
   this.teken = function(){
     noStroke();
+    //stroke(0);
     fill(ball_col);
     ellipse(this.xPos, this.yPos, 2*this.radius, 2*this.radius);
   }
