@@ -15,7 +15,7 @@ var stage = 0;
 
 function setup(){
   createCanvas(xSize, ySize);
-  cheeta_bg = loadImage("leopard.jpg");
+  noCursor();
 
   for (var i = 0; i< aantalBallen; i++){
     bal = new Bal(21, 21, ball_radius + Math.floor(Math.random() * 25), Math.floor(Math.random() * 6) + 1, Math.floor(Math.random() * 6) + 1,[Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)]);
@@ -32,6 +32,8 @@ function draw(){
     textSize(50);
     fill(140);
     text("Start", (innerWidth/2)-55, (innerHeight/2)-25);
+    stroke(50);
+    ellipse(mouseX,mouseY,10)
   }
   else{
     if(!life <= 0){
@@ -42,6 +44,7 @@ function draw(){
       fill(255,0,0);
       text("life: " + life, 0, 30);
       fill(50);
+      noStroke();
       ellipse(mouseX, mouseY, player_size);
       //ball logic
       for (var i = 0; i < ballen.length; i++){
@@ -55,7 +58,11 @@ function draw(){
       background(255,0,0);
       textSize(50);
       fill(150,0,0);
-      text("You died", (innerWidth/2)-50, (innerHeight/2)-25)
+      noStroke();
+      text("You died", (innerWidth/2)-50, (innerHeight/2)-25);
+      fill(170)
+      stroke(50);
+      ellipse(mouseX,mouseY,10);
     }
   }
 }
