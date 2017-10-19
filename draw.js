@@ -18,7 +18,7 @@ function setup(){
   createCanvas(xSize, ySize);
   noCursor();
   for (var i = 0; i< aantalBallen; i++){
-    bal = new Bal(Math.floor(Math.random()*(innerWidth-60))+60, Math.floor(Math.random()*(innerHeight-60))+60, ball_radius + Math.floor(Math.random() * 25), Math.floor(Math.random() * 6) + 1, Math.floor(Math.random() * 6) + 1,[Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)]);
+    bal = new Bal(Math.floor(Math.random() * (innerWidth - 60)) + 60, Math.floor(Math.random() * (innerHeight - 60)) + 60, ball_radius + Math.floor(Math.random() * 25), Math.floor(Math.random() * 6) + 1, Math.floor(Math.random() * 6) + 1,[Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)]);
     ballen.push(bal);
   }
 }
@@ -85,8 +85,8 @@ function mouseClicked(){
 
 function Bal(x, y, radius, xspd, yspd, ball_col){
   this.ball_color = ball_col;
-  this.xPos = x + begin_x;
-  this.yPos = y + begin_y;
+  this.xPos = x;
+  this.yPos = y;
   this.radius = radius;
   this.xSpeed = xspd;
   this.ySpeed = yspd;
