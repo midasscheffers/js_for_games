@@ -5,7 +5,7 @@ var ySize = innerHeight - 20;
 var bal;
 var ballen = []; //Array waar de ballen in komen te staan
 var aantalBallen = 15;
-var speed_force = 50;
+var speed_force = 5;
 var ball_radius = 5;
 var ball_color;
 var cheeta_bg;
@@ -37,10 +37,19 @@ function draw(){
     ellipse(mouseX,mouseY,10)
   }
   else{
-    if(!life <= 0){
+    if(life <= 0){
+      background(255,0,0);
+      textSize(50);
+      fill(150,0,0);
+      noStroke();
+      text("You died", (innerWidth/2)-50, (innerHeight/2)-25);
+      fill(170)
+      stroke(50);
+      ellipse(mouseX,mouseY,10);
+    }
+    else{
       // time logic
       mil = millis()
-      //background(cheeta_bg);
       background(255,255,255,speed_force)
       // print life
       textSize(32);
@@ -58,16 +67,6 @@ function draw(){
         bal.check_hit();
         bal.beweeg();
       }
-    }
-    else{
-      background(255,0,0);
-      textSize(50);
-      fill(150,0,0);
-      noStroke();
-      text("You died", (innerWidth/2)-50, (innerHeight/2)-25);
-      fill(170)
-      stroke(50);
-      ellipse(mouseX,mouseY,10);
     }
   }
 }
