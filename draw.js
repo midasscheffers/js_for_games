@@ -12,13 +12,14 @@ var cheeta_bg;
 var player_size = 50;
 var life = 250;
 var stage = 0;
+var timeStart = millis();
 
 function setup(){
   createCanvas(xSize, ySize);
   noCursor();
 
   for (var i = 0; i< aantalBallen; i++){
-    bal = new Bal(21, 21, ball_radius + Math.floor(Math.random() * 25), Math.floor(Math.random() * 6) + 1, Math.floor(Math.random() * 6) + 1,[Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)]);
+    bal = new Bal(Math.floor(Math.random()*(innerWidth-60))+60, Math.floor(Math.random()*(innerHeight-60))+60, ball_radius + Math.floor(Math.random() * 25), Math.floor(Math.random() * 6) + 1, Math.floor(Math.random() * 6) + 1,[Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)]);
     ballen.push(bal);
   }
 }
@@ -37,12 +38,16 @@ function draw(){
   }
   else{
     if(!life <= 0){
+      // time logic
+      mil = millis()
       //background(cheeta_bg);
       background(255,255,255,speed_force)
       // print life
       textSize(32);
       fill(255,0,0);
       text("life: " + life, 0, 30);
+      fill(50.255,50);
+      text("score: " + toString(timeStart), 150, 30);
       fill(50);
       noStroke();
       ellipse(mouseX, mouseY, player_size);
@@ -94,7 +99,7 @@ function Bal(x, y, radius, xspd, yspd, ball_col){
     dx = mouseX - this.xPos;
     dy = mouseY - this.yPos;
     if (Math.sqrt(dx*dx + dy*dy) <= player_size + this.radius){
-      life -= 1
+      life -= Math.floor(this.radius/10) + 1;
     }
   }
 
