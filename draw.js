@@ -5,19 +5,18 @@ var ySize = innerHeight - 20;
 var bal;
 var ballen = []; //Array waar de ballen in komen te staan
 var aantalBallen = 15;
-var speed_force = 5;
+var speed_force = 50;
 var ball_radius = 5;
 var ball_color;
 var cheeta_bg;
 var player_size = 50;
 var life = 250;
 var stage = 0;
-var timeStart = millis();
+var timeStart;
 
 function setup(){
   createCanvas(xSize, ySize);
   noCursor();
-
   for (var i = 0; i< aantalBallen; i++){
     bal = new Bal(Math.floor(Math.random()*(innerWidth-60))+60, Math.floor(Math.random()*(innerHeight-60))+60, ball_radius + Math.floor(Math.random() * 25), Math.floor(Math.random() * 6) + 1, Math.floor(Math.random() * 6) + 1,[Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)]);
     ballen.push(bal);
@@ -46,17 +45,21 @@ function draw(){
       fill(170)
       stroke(50);
       ellipse(mouseX,mouseY,10);
+      noStroke();
+      textSize(32);
+      fill(50,255,50);
+      text("score: " + score.toString(), 150, 30);
     }
     else{
       // time logic
-      mil = millis()
+      score = Math.floor(millis() - timeStart);
       background(255,255,255,speed_force)
       // print life
       textSize(32);
       fill(255,0,0);
       text("life: " + life, 0, 30);
-      fill(50.255,50);
-      text("score: " + toString(timeStart), 150, 30);
+      fill(50,255,50);
+      text("score: " + score.toString(), 150, 30);
       fill(50);
       noStroke();
       ellipse(mouseX, mouseY, player_size);
@@ -75,6 +78,7 @@ function mouseClicked(){
   if(stage == 0){
     if(mouseX > (innerWidth/2)-70 && mouseX < (innerWidth/2)+70 && mouseY > (innerHeight/2)-75 && mouseY < (innerHeight/2)-5){
       stage += 1;
+      timeStart = millis();
     }
   }
 }
