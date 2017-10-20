@@ -18,7 +18,7 @@ function setup(){
   createCanvas(xSize, ySize);
   noCursor();
   for (var i = 0; i< aantalBallen; i++){
-    bal = new Bal(Math.floor(Math.random() * (innerWidth - 60)) + 60, Math.floor(Math.random() * (innerHeight - 60)) + 60, ball_radius + Math.floor(Math.random() * 25), Math.floor(Math.random() * 6) + 1, Math.floor(Math.random() * 6) + 1,[Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)]);
+    bal = new Bal(random(60,innerWidth - 60), random(60, innerHeight - 60), ball_radius + random(0,25), random(1, 6), random(1, 6),[random(255), random(255), random(255)]);
     ballen.push(bal);
   }
 }
@@ -52,7 +52,7 @@ function draw(){
     }
     else{
       // time logic
-      score = Math.floor(millis() - timeStart);
+      score = floor(millis() - timeStart);
       background(255,255,255,speed_force)
       // print life
       textSize(32);
@@ -101,8 +101,8 @@ function Bal(x, y, radius, xspd, yspd, ball_col){
   this.check_hit = function(){
     dx = mouseX - this.xPos;
     dy = mouseY - this.yPos;
-    if (Math.sqrt(dx*dx + dy*dy) <= player_size + this.radius){
-      life -= Math.floor(this.radius/10) + 1;
+    if (sqrt(dx*dx + dy*dy) <= player_size + this.radius){
+      life -= floor(this.radius/10) + 1;
     }
   }
 
