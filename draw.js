@@ -137,19 +137,19 @@ function Bal(x, y, radius, xspd, yspd, ball_col){
   this.beweeg = function(){
     if (this.xPos > width - this.radius || this.xPos < this.radius){
       if (this.xSpeed < 0){
-        this.xSpeed -=0.5;
+        this.xSpeed -=0.25;
       }
       else{
-        this.xSpeed +=0.5;
+        this.xSpeed +=0.25;
       }
       this.xSpeed = -this.xSpeed;
     }
     if (this.yPos > height - this.radius || this.yPos < this.radius){
       if (this.ySpeed < 0){
-        this.ySpeed -=0.5;
+        this.ySpeed -=0.25;
       }
       else{
-        this.ySpeed +=0.5;
+        this.ySpeed +=0.25;
       }
       this.ySpeed = -this.ySpeed;
     }
