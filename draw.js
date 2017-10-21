@@ -25,6 +25,8 @@ highscore = localStorage.getItem("highscore");
 function setup(){
   createCanvas(xSize, ySize);
   noCursor();
+  ballen = [];
+  life = 250;
   for (var i = 0; i< aantalBallen; i++){
     bal = new Bal(random(60,innerWidth - 60), random(60, innerHeight - 60), ball_radius + random(0,25), random(1, 3), random(1, 3),[random(255), random(255), random(255)]);
     ballen.push(bal);
@@ -44,13 +46,18 @@ function draw(){
     stroke(50);
     ellipse(mouseX,mouseY,10)
   }
-  else{
+  else if(stage > 0){
     if(life <= 0){
+      stage = 2;
       background(255,0,0);
       textSize(50);
       fill(150,0,0);
       noStroke();
-      text("You died", (innerWidth/2)-50, (innerHeight/2)-25);
+      text("You died", (innerWidth/2)-100, (innerHeight/2)-25);
+      fill(255, 70, 70);
+      rect((innerWidth/2)-60, (innerHeight/2), 120, 55);
+      fill(150, 0, 0)
+      text("retry", (innerWidth/2)-50, (innerHeight/2)+40);
       fill(170);
       stroke(50);
       ellipse(mouseX,mouseY,10);
@@ -64,7 +71,7 @@ function draw(){
       }
       text("highscore: " + highscore.toString(), 500, 30);
     }
-    else{
+    else if(stage == 1){
       // time logic
       score = floor(millis() - timeStart);
       if (lose_life == false){
@@ -105,8 +112,13 @@ function draw(){
 function mouseClicked(){
   if(stage == 0){
     if(mouseX > (innerWidth/2)-70 && mouseX < (innerWidth/2)+70 && mouseY > (innerHeight/2)-75 && mouseY < (innerHeight/2)-5){
-      stage += 1;
+      stage = 1;
       timeStart = millis();
+    }
+  }if(stage >= 2){
+    if(mouseX > (innerWidth/2)-60 && mouseX < (innerWidth/2)+60 && mouseY > (innerHeight/2) && mouseY < (innerHeight/2)+55){
+      setup();
+      stage = 0;
     }
   }
 }
