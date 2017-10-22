@@ -1,5 +1,4 @@
-var begin_x = 30;
-var begin_y = 30;
+var begin_xy = 60;
 var xSize = innerWidth - 20;
 var ySize = innerHeight - 20;
 var bal;
@@ -8,10 +7,10 @@ var aantalBallen = 15;
 var speed_force = 50;
 var ball_radius = 5;
 var ball_color;
-var cheeta_bg;
 var player_size = 50;
 var life = 250;
 var stage = 0;
+var change_speed = 0.125;
 var timeStart;
 var lose_life = false;
 var highscore;
@@ -28,7 +27,7 @@ function setup(){
   ballen = [];
   life = 250;
   for (var i = 0; i< aantalBallen; i++){
-    bal = new Bal(random(60,innerWidth - 60), random(60, innerHeight - 60), ball_radius + random(0,25), random(1, 3), random(1, 3),[random(255), random(255), random(255)]);
+    bal = new Bal(random(begin_xy,innerWidth - begin_xy), random(begin_xy, innerHeight - begin_xy), ball_radius + random(0,25), random(1, 3), random(1, 3),[random(255), random(255), random(255)]);
     ballen.push(bal);
   }
 }
@@ -149,19 +148,43 @@ function Bal(x, y, radius, xspd, yspd, ball_col){
   this.beweeg = function(){
     if (this.xPos > width - this.radius || this.xPos < this.radius){
       if (this.xSpeed < 0){
-        this.xSpeed -=0.25;
+        this.xSpeed -=change_speed;
+        if (this.ySpeed < 0){
+          this.ySpeed -=change_speed;
+        }
+        else{
+          this.ySpeed +=change_speed;
+        }
       }
       else{
-        this.xSpeed +=0.25;
+        this.xSpeed +=change_speed;
+        if (this.ySpeed < 0){
+          this.ySpeed -=change_speed;
+        }
+        else{
+          this.ySpeed +=change_speed;
+        }
       }
       this.xSpeed = -this.xSpeed;
     }
     if (this.yPos > height - this.radius || this.yPos < this.radius){
       if (this.ySpeed < 0){
-        this.ySpeed -=0.25;
+        this.ySpeed -=change_speed;
+        if (this.xSpeed < 0){
+          this.xSpeed -=change_speed;
+        }
+        else{
+          this.xSpeed +=change_speed;
+        }
       }
       else{
-        this.ySpeed +=0.25;
+        this.ySpeed +=change_speed;
+        if (this.xSpeed < 0){
+          this.xSpeed -=change_speed;
+        }
+        else{
+          this.xSpeed +=change_speed;
+        }
       }
       this.ySpeed = -this.ySpeed;
     }
