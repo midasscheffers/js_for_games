@@ -14,6 +14,8 @@ var change_speed = 0.125;
 var timeStart;
 var lose_life = false;
 var highscore;
+var button_audio = new Audio('button.mp3');
+var lose_life_audio = new Audio('life.mp3');
 var eerder = localStorage.getItem("eerder");
 if (eerder != "ja"){
   localStorage.setItem("eerder", "ja");
@@ -111,11 +113,13 @@ function draw(){
 function mouseClicked(){
   if(stage == 0){
     if(mouseX > (innerWidth/2)-70 && mouseX < (innerWidth/2)+70 && mouseY > (innerHeight/2)-75 && mouseY < (innerHeight/2)-5){
+      audio.play(button_audio);
       stage = 1;
       timeStart = millis();
     }
   }if(stage >= 2){
     if(mouseX > (innerWidth/2)-60 && mouseX < (innerWidth/2)+60 && mouseY > (innerHeight/2) && mouseY < (innerHeight/2)+55){
+      audio.play(button_audio);
       setup();
       stage = 0;
     }
@@ -142,6 +146,7 @@ function Bal(x, y, radius, xspd, yspd, ball_col){
     if (sqrt(dx*dx + dy*dy) <= player_size + this.radius){
       lose_life = true;
       life -= floor(this.radius/10) + 1;
+      audio.play(lose_life_audio);
     }
   }
 
